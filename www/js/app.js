@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+var app = angular.module('starter', ['ionic', 'ui.bootstrap.datetimepicker'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -21,4 +21,58 @@ angular.module('starter', ['ionic'])
       StatusBar.styleDefault();
     }
   });
-})
+});
+
+app.controller('selectMovieCtrl',
+function getString($scope, $ionicPopup) {
+  $scope.data = {};
+  $scope.getMovieTitle = function () {
+      var myPopup = $ionicPopup.show({
+          template: '<input type="text" ng-model="data.movie">',
+          title: 'What movie would you like to watch?',
+          scope: $scope,
+          buttons: [
+              { text: 'Cancel' },
+              {
+                  text: 'Submit',
+                  type: 'button-positive',
+                  onTap: function(e) {
+                    console.log(e);
+                    if(!$scope.data.movie) {
+                      e.preventDefault();
+                    } else {
+                      console.log($scope.data.movie)
+                      console.log($scope.data);
+                      return $scope.data.movie;
+                    }
+                  }
+              }
+          ]
+      });
+    }
+  $scope.getDateString = function () {
+      var myPopup = $ionicPopup.show({
+          template: '<datetimepicker ng-model="data.date"></datetimepicker>',
+          title: 'When would you like to watch it?',
+          scope: $scope,
+          buttons: [
+              { text: 'Cancel' },
+              {
+                  text: 'Submit',
+                  type: 'button-positive',
+                  onTap: function(e) {
+                    console.log(e);
+                    if(!$scope.data.date) {
+                      e.preventDefault();
+                    } else {
+                      console.log($scope.data.date)
+                      console.log($scope.data);
+                      return $scope.data.movie;
+                    }
+                  }
+              }
+          ]
+      });
+    }
+  }
+);
