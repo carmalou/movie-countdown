@@ -41,7 +41,6 @@ function getString($scope, $ionicPopup) {
                     if(!$scope.data.movie) {
                       e.preventDefault();
                     } else {
-                      console.log($scope.data.movie)
                       console.log($scope.data);
                       return $scope.data.movie;
                     }
@@ -65,7 +64,6 @@ function getString($scope, $ionicPopup) {
                     if(!$scope.data.date) {
                       e.preventDefault();
                     } else {
-                      console.log($scope.data.date)
                       console.log($scope.data);
                       return $scope.data.movie;
                     }
