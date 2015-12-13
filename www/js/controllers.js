@@ -1,9 +1,10 @@
-var app = angular.module('starter', ['ionic', 'ui.bootstrap.datetimepicker'])
+var app = angular.module('starter.controller', ['ionic', 'ui.bootstrap.datetimepicker'])
 
 app.controller('selectMovieCtrl',
 function getString($scope, $ionicPopup) {
   $scope.data = {};
   $scope.getMovieTitle = function () {
+    console.log('movie title');
       var myPopup = $ionicPopup.show({
           template: '<input type="text" ng-model="data.movie">',
           title: 'What movie would you like to watch?',
@@ -27,6 +28,7 @@ function getString($scope, $ionicPopup) {
       });
     }
   $scope.getDateString = function () {
+    console.log('date string');
       var myPopup = $ionicPopup.show({
           template: '<datetimepicker ng-model="data.date"></datetimepicker>',
           title: 'When would you like to watch it?',
@@ -55,10 +57,12 @@ function getString($scope, $ionicPopup) {
 app.controller('buttons',
   function buttons($scope, $http, $ionicPopup) {
     $scope.cancelButton = function () {
+      console.log('cancel');
       $scope.data.movie = null;
       $scope.data.date = null;
     };
     $scope.submitButton = function () {
+      console.log('submit');
       if($scope.data.movie && $scope.data.date) {
         console.log($scope.data);
       } else {
