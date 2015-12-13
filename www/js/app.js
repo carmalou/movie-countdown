@@ -74,3 +74,12 @@ function getString($scope, $ionicPopup) {
     }
   }
 );
+
+app.controller('buttons',
+  function buttons($scope) {
+    $scope.cancelButton = function () {
+      $scope.data.movie = null;
+      $scope.data.date = null;
+    }
+  }
+);

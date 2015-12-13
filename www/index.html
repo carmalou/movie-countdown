@@ -33,9 +33,9 @@
       <ion-content ng-controller="selectMovieCtrl">
         <ion-item ng-click="getMovieTitle()">What movie would you like to watch?</ion-item>
         <ion-item ng-click="getDateString()">When would you like to watch it?</ion-item>
-        <div class="bottom-of-page">
+        <div class="bottom-of-page" ng-controller="buttons">
           <button class="button button-positive button-full">Submit</button>
-          <button class="button button-assertive button-full">Cancel</button>
+          <button class="button button-assertive button-full" ng-click="cancelButton()">Cancel</button>
         </div>
 
       </ion-content>
