@@ -1,12 +1,18 @@
 <ion-view view-title="Countdown" ng-controller="countdownToMovie">
   <ion-content>
-    <div class="card">
+    <div class="card" ng-hide="!movie || !days">
       <div class="item item-text-wrap countdown-item">
         <ion-item>
           {{ days }} days {{ hours }} hours {{ minutes }} minutes {{ seconds }} seconds
         </ion-item>
         <ion-item>remaining until</ion-item>
         <ion-item><h2>{{ movie }}</h2></ion-item>
+      </div>
+    </div>
+
+    <div class="card" ng-hide="movie || days">
+      <div class="item item-text-wrap countdown-item">
+        Please return to the home page and select a movie and a date!
       </div>
     </div>
   </ion-content>
