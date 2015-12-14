@@ -1,7 +1,7 @@
-<ion-view view-title="Countdown">
+<ion-view view-title="Countdown" ng-controller="countdownToMovie">
   <ion-content>
-    <!-- {{ - }} days, {{ - }} hours, {{ - }} minutes -->
+    {{ days }} days {{ hours }} hours {{ minutes }} minutes {{ seconds }} seconds
     remaining until
-    {{ window.localStorage.getItem("movie") }}
+    {{ movie }}
   </ion-content>
 </ion-view>

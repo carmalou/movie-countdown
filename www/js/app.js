@@ -55,7 +55,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     views: {
       'tab-countdown': {
         templateUrl: 'templates/tab-countdown.html',
-        controller: 'buttons'
+        controller: 'countdownToMovie'
       }
     }
   });
