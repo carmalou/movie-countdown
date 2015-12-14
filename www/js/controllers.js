@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ui.bootstrap.datetimepicker', 'angularMoment'])
 
 .controller('selectMovieCtrl',
 function getString($scope, $ionicPopup) {
@@ -54,12 +54,18 @@ function getString($scope, $ionicPopup) {
 
 .controller('buttons', function buttons($scope, $http, $ionicPopup) {
     $scope.cancelButton = function () {
+      console.log('cancel');
       $scope.data.movie = null;
       $scope.data.date = null;
     };
     $scope.submitButton = function () {
       if($scope.data.movie && $scope.data.date) {
         console.log($scope.data);
+        console.log('is this even working??');
+        $http.post('/movie/countdown.json', $scope.data)
+          .then(function () {
+            console.log('Success!')
+          });
       } else {
         console.log('add a popup to let peeps know what\'s missing');
       }
