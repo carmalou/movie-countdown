@@ -1,10 +1,9 @@
-var app = angular.module('starter.controller', ['ionic', 'ui.bootstrap.datetimepicker'])
+angular.module('starter.controllers', ['ui.bootstrap.datetimepicker', 'angularMoment'])
 
-app.controller('selectMovieCtrl',
+.controller('selectMovieCtrl',
 function getString($scope, $ionicPopup) {
   $scope.data = {};
   $scope.getMovieTitle = function () {
-    console.log('movie title');
       var myPopup = $ionicPopup.show({
           template: '<input type="text" ng-model="data.movie">',
           title: 'What movie would you like to watch?',
@@ -28,7 +27,6 @@ function getString($scope, $ionicPopup) {
       });
     }
   $scope.getDateString = function () {
-    console.log('date string');
       var myPopup = $ionicPopup.show({
           template: '<datetimepicker ng-model="data.date"></datetimepicker>',
           title: 'When would you like to watch it?',
@@ -52,22 +50,55 @@ function getString($scope, $ionicPopup) {
       });
     }
   }
-);
+)
 
-app.controller('buttons',
-  function buttons($scope, $http, $ionicPopup) {
-    $scope.cancelButton = function () {
-      console.log('cancel');
-      $scope.data.movie = null;
-      $scope.data.date = null;
-    };
-    $scope.submitButton = function () {
-      console.log('submit');
-      if($scope.data.movie && $scope.data.date) {
-        console.log($scope.data);
-      } else {
-        console.log('add a popup to let peeps know what\'s missing');
-      }
+.controller('buttons', function buttons($scope, $http, $ionicPopup) {
+  $scope.cancelButton = function () {
+    console.log('cancel');
+    $scope.data.movie = null;
+    $scope.data.date = null;
+  };
+  $scope.submitButton = function () {
+    if($scope.data.movie && $scope.data.date) {
+      window.localStorage.setItem("movie", $scope.data.movie);
+      window.localStorage.setItem("date", $scope.data.date);
+      console.log(window.localStorage.getItem("movie"));
+      console.log(window.localStorage.getItem("date"));
+    } else {
+      console.log('add a popup to let peeps know what\'s missing');
     }
   }
-);
+})
+
+.controller('countdownToMovie', function countdownToMovie($scope, $interval) {
+  $scope.movie = window.localStorage.getItem("movie");
+  $scope.countdown = function countDown () {
+    console.log($scope.movie);
+    console.log('countdown got called');
+
+    var currentDate = new Date();
+    var futureDate = window.localStorage.getItem("date");
+
+    currentDate = Date.parse(currentDate);
+    futureDate = Date.parse(futureDate);
+
+    var difference = futureDate - currentDate;
+
+    var seconds = difference / 1000;
+    var minutes = seconds / 60;
+    var hours = minutes / 60;
+    var days = hours / 24;
+
+    seconds = seconds % 60;
+    minutes = minutes % 60;
+    hours = hours % 24;
+
+    $scope.seconds = Math.floor(seconds);
+    $scope.minutes = Math.floor(minutes);
+    $scope.hours = Math.floor(hours);
+    $scope.days = Math.floor(days);
+
+    // $interval(function () { $scope.countdown(); }, 1000);
+  };
+  $interval(function () { $scope.countdown(); }, 1000);
+})

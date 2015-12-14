@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('starter', ['ionic', 'starter.controller', 'ui.bootstrap.datetimepicker'])
+var app = angular.module('starter', ['ionic', 'starter.controllers']);
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -24,35 +24,43 @@ app.run(function($ionicPlatform) {
 });
 
 app.config(function($stateProvider, $urlRouterProvider) {
+
+  // Ionic uses AngularUI Router which uses the concept of states
+  // Learn more here: https://github.com/angular-ui/ui-router
+  // Set up the various states which the app can be in.
+  // Each state's controller can be found in controllers.js
   $stateProvider
 
-    // setup an abstract state for the tabs directive
-      .state('home', {
-      url: '/#',
-      abstract: true,
-      templateUrl: 'index.html'
-    })
+  // setup an abstract state for the tabs directive
+    .state('tab', {
+    url: '/tab',
+    abstract: true,
+    templateUrl: 'templates/tabs.html'
+  })
 
-    // Each tab has its own nav history stack:
+  // Each tab has its own nav history stack:
 
   .state('tab.home', {
     url: '/home',
     views: {
       'tab-home': {
-        templateUrl: 'index.html',
+        templateUrl: 'templates/tab-home.html',
         controller: 'selectMovieCtrl'
       }
     }
   })
 
   .state('tab.countdown', {
-      url: '/countdown',
-      views: {
-        'tab-countdown': {
-          templateUrl: 'countdown.html'
-          // controller: 'ChatsCtrl'
-        }
+    url: '/countdown',
+    views: {
+      'tab-countdown': {
+        templateUrl: 'templates/tab-countdown.html',
+        controller: 'countdownToMovie'
       }
-    });
+    }
+  });
+
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/tab/home');
 
 });
