@@ -73,8 +73,6 @@ function getString($scope, $ionicPopup) {
 .controller('countdownToMovie', function countdownToMovie($scope, $interval) {
   $scope.movie = window.localStorage.getItem("movie");
   $scope.countdown = function countDown () {
-    console.log($scope.movie);
-    console.log('countdown got called');
 
     var currentDate = new Date();
     var futureDate = window.localStorage.getItem("date");
@@ -97,8 +95,7 @@ function getString($scope, $ionicPopup) {
     $scope.minutes = Math.floor(minutes);
     $scope.hours = Math.floor(hours);
     $scope.days = Math.floor(days);
-
-    // $interval(function () { $scope.countdown(); }, 1000);
+    
   };
   $interval(function () { $scope.countdown(); }, 1000);
 })
