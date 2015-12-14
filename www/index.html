@@ -23,7 +23,6 @@
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
   </head>
 
   <body ng-app="starter">
@@ -43,22 +42,17 @@
       </ion-content>
     </ion-pane>
 
-    <ion-nav-view>
-      <ion-tabs class="tabs-icon-top tabs-color-active-positive">
+    <ion-tabs class="tabs-icon-top tabs-color-active-positive">
 
-      <!-- Home Tab -->
-      <ion-tab title="Home" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" href="#/home">
-        <ion-nav-view name="tab-home"></ion-nav-view>
-      </ion-tab>
+    <ion-tab title="Home" icon-off="ion-ios-home-outline" icon-on="ion-ios-home">
+      <ion-nav-view name="tab-home"></ion-nav-view>
+    </ion-tab>
 
-      <!-- Countdown Tab -->
-      <ion-tab title="Countdown" icon-off="ion-ios-timer-outline" icon-on="ion-ios-timer" href="#/countdown">
-        <ion-nav-view name="tab-countdown"></ion-nav-view>
-      </ion-tab>
+    <ion-tab title="Countdown" icon-off="ion-ios-timer-outline" icon-on="ion-ios-timer">
+      <ion-nav-view name="tab-countdown"></ion-nav-view>
+    </ion-tab>
 
-
-    </ion-tabs>
-    </ion-nav-view>
+  </ion-tabs>
 
   </body>
 </html>
