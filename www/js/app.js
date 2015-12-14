@@ -3,9 +3,9 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('starter', ['ionic', 'ui.bootstrap.datetimepicker'])
+var app = angular.module('starter', ['ionic', 'ui.bootstrap.datetimepicker', 'starter.controllers']);
 
-.run(function($ionicPlatform) {
+app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -23,70 +23,44 @@ var app = angular.module('starter', ['ionic', 'ui.bootstrap.datetimepicker'])
   });
 });
 
-app.controller('selectMovieCtrl',
-function getString($scope, $ionicPopup) {
-  $scope.data = {};
-  $scope.getMovieTitle = function () {
-      var myPopup = $ionicPopup.show({
-          template: '<input type="text" ng-model="data.movie">',
-          title: 'What movie would you like to watch?',
-          scope: $scope,
-          buttons: [
-              { text: 'Cancel' },
-              {
-                  text: 'Submit',
-                  type: 'button-positive',
-                  onTap: function(e) {
-                    console.log(e);
-                    if(!$scope.data.movie) {
-                      e.preventDefault();
-                    } else {
-                      console.log($scope.data);
-                      return $scope.data.movie;
-                    }
-                  }
-              }
-          ]
-      });
-    }
-  $scope.getDateString = function () {
-      var myPopup = $ionicPopup.show({
-          template: '<datetimepicker ng-model="data.date"></datetimepicker>',
-          title: 'When would you like to watch it?',
-          scope: $scope,
-          buttons: [
-              { text: 'Cancel' },
-              {
-                  text: 'Submit',
-                  type: 'button-positive',
-                  onTap: function(e) {
-                    console.log(e);
-                    if(!$scope.data.date) {
-                      e.preventDefault();
-                    } else {
-                      console.log($scope.data);
-                      return $scope.data.movie;
-                    }
-                  }
-              }
-          ]
-      });
-    }
-  }
-);
+app.config(function($stateProvider, $urlRouterProvider) {
 
-app.controller('buttons',
-  function buttons($scope, $http, $ionicPopup) {
-    $scope.cancelButton = function () {
-      $scope.data.movie = null;
-      $scope.data.date = null;
-    };
-    $scope.submitButton = function () {
-      if($scope.data.movie && $scope.data.date) {
-        console.log($scope.data);
-      } else {
-        console.log('add a popup to let peeps know what\'s missing');
+  // Ionic uses AngularUI Router which uses the concept of states
+  // Learn more here: https://github.com/angular-ui/ui-router
+  // Set up the various states which the app can be in.
+  // Each state's controller can be found in controllers.js
+  $stateProvider
+
+  // setup an abstract state for the tabs directive
+    .state('tab', {
+    url: '/tab',
+    abstract: true,
+    templateUrl: 'templates/tabs.html'
+  })
+
+  // Each tab has its own nav history stack:
+
+  .state('tab.home', {
+    url: '/home',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/tab-home.html',
+        controller: 'selectMovieCtrl'
       }
     }
-  }
-);
+  })
+
+  .state('tab.countdown', {
+    url: '/countdown',
+    views: {
+      'tab-countdown': {
+        templateUrl: 'templates/tab-countdown.html',
+        controller: 'buttons'
+      }
+    }
+  });
+
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/tab/home');
+
+});
