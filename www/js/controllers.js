@@ -98,6 +98,7 @@ function getString($scope, $ionicPopup) {
     $scope.hours = Math.floor(hours);
     $scope.days = Math.floor(days);
 
-    $interval(function () { $scope.countdown(); }, 1000);
+    // $interval(function () { $scope.countdown(); }, 1000);
   };
+  $interval(function () { $scope.countdown(); }, 1000);
 })
