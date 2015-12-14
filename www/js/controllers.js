@@ -60,12 +60,10 @@ function getString($scope, $ionicPopup) {
     };
     $scope.submitButton = function () {
       if($scope.data.movie && $scope.data.date) {
-        console.log($scope.data);
-        console.log('is this even working??');
-        $http.post('/movie/countdown.json', $scope.data)
-          .then(function () {
-            console.log('Success!')
-          });
+        window.localStorage.setItem("movie", $scope.data.movie);
+        window.localStorage.setItem("date", $scope.data.date);
+        console.log(window.localStorage.getItem("movie"));
+        console.log(window.localStorage.getItem("date"));
       } else {
         console.log('add a popup to let peeps know what\'s missing');
       }
