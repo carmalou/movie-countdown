@@ -66,39 +66,58 @@ function getString($scope, $ionicPopup) {
       console.log(window.localStorage.getItem("date"));
     } else {
       console.log('add a popup to let peeps know what\'s missing');
+      var myPopup = $ionicPopup.show({
+          template: '<p></p>',
+          title: 'Make sure you\'ve selected both a movie and a date!',
+          scope: $scope,
+          buttons: [
+            { text: 'OK!',
+              type: 'button-positive'
+            }
+          ]
+      });
     }
   }
 })
 
-.controller('countdownToMovie', function countdownToMovie($scope, $interval) {
-  $scope.movie = window.localStorage.getItem("movie");
-  $scope.countdown = function countDown () {
-    console.log($scope.movie);
-    console.log('countdown got called');
+.controller('countdownToMovie', function countdownToMovie($scope, $interval, $ionicPopup) {
+  if(window.localStorage.getItem("movie") && window.localStorage.getItem("date")) {
+    $scope.movie = window.localStorage.getItem("movie");
+    $scope.countdown = function countDown () {
 
-    var currentDate = new Date();
-    var futureDate = window.localStorage.getItem("date");
+      var currentDate = new Date();
+      var futureDate = window.localStorage.getItem("date");
 
-    currentDate = Date.parse(currentDate);
-    futureDate = Date.parse(futureDate);
+      currentDate = Date.parse(currentDate);
+      futureDate = Date.parse(futureDate);
 
-    var difference = futureDate - currentDate;
+      var difference = futureDate - currentDate;
 
-    var seconds = difference / 1000;
-    var minutes = seconds / 60;
-    var hours = minutes / 60;
-    var days = hours / 24;
+      var seconds = difference / 1000;
+      var minutes = seconds / 60;
+      var hours = minutes / 60;
+      var days = hours / 24;
 
-    seconds = seconds % 60;
-    minutes = minutes % 60;
-    hours = hours % 24;
+      seconds = seconds % 60;
+      minutes = minutes % 60;
+      hours = hours % 24;
 
-    $scope.seconds = Math.floor(seconds);
-    $scope.minutes = Math.floor(minutes);
-    $scope.hours = Math.floor(hours);
-    $scope.days = Math.floor(days);
-
-    // $interval(function () { $scope.countdown(); }, 1000);
-  };
+      $scope.seconds = Math.floor(seconds);
+      $scope.minutes = Math.floor(minutes);
+      $scope.hours = Math.floor(hours);
+      $scope.days = Math.floor(days);
+    }
+  } else {
+    var myPopup = $ionicPopup.show({
+        template: '<p></p>',
+        title: 'Please select a movie and a date.',
+        scope: $scope,
+        buttons: [
+          { text: 'OK!',
+            type: 'button-positive'
+          }
+        ]
+    });
+  }
   $interval(function () { $scope.countdown(); }, 1000);
 })

@@ -1,1 +1,10 @@
 /* Empty. Add your own CSS if you like */
+.card {
+  text-align: center;
+}
+
+.countdown-item {
+  border-width: 0 !important;
+  border-style: none !important;
+  font-size: 18px !important;
+}
