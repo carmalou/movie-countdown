@@ -69,4 +69,34 @@ function getString($scope, $ionicPopup) {
       }
     }
   }
-);
+)
+
+.controller('countdown', function countdown() {
+  $scope.timer = function () {
+    var countdown = function countDown () {
+      var currentDate = new Date();
+      var futureDate = window.localStorage.getItem("date");
+
+      currentDate = Date.parse(currentDate);
+      futureDate = Date.parse(futureDate);
+
+      var difference = futureDate - currentDate;
+
+      $scope.seconds = difference / 1000;
+      $scope.minutes = seconds / 60;
+      $scope.hours = minutes / 60;
+      $scope.days = hours / 24;
+
+      seconds = seconds % 60;
+      minutes = minutes % 60;
+      hours = hours % 24;
+
+      seconds = Math.floor(seconds);
+      minutes = Math.floor(minutes);
+      hours = Math.floor(hours);
+      days = Math.floor(days);
+    };
+
+    window.setInterval(countdown, 1000);
+  };
+})
